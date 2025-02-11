@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newspaper Article</title>
+<style>
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.8;
+        margin: 0;
+        padding: 20px;
+        background-color: #edebf5;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: rgba(192, 184, 184, 0.188);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .article {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .header {
+        font-size: 28px;
+        color: rgb(116, 20, 59);
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 2px solid rgb(116, 20, 59);
+        padding-bottom: 10px;
+    }
+    .meta {
+        color: #091596;
+        text-align: center;
+        font-size: 14px;
+    }
+    .content {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .content img {
+        max-width: 200px;
+        border-radius: 5px;
+    }
+    .text {
+        flex: 1;
+    }
+    .columns {
+        display: flex;
+        gap: 20px;
+    }
+    .column {
+        flex: 1;
+        text-align: justify;
+    }
+    .footer {
+        font-style: italic;
+        color: #888;
+        text-align: right;
+        margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="article">
+        <div class="header">Book news for today</div>
+        <div class="meta">Published on October 25, 2023</div>
+        </div>
+
+        <div class="content">
+            <div class="text">
+                <div class="newspaper"> 
+                
+                    <div class="article">
+                        <h2>Exciting New Book Releases to Watch Out For!</h2>
+                        <p>The literary world is buzzing with the latest book releases that promise to captivate readers. From thrilling mysteries to heartwarming romances, this month's lineup has something for everyone.</p>
+                        
+                        <h3>"The Shadow Code" by Emily Carter</h3>
+                        <p>A gripping cyber-thriller where a young hacker discovers a secret organization that controls the digital world.</p>
+                
+                        <h3>"Echoes of Yesterday" by Daniel Owens</h3>
+                        <p>A poignant historical fiction novel about a war veteran uncovering secrets from his past.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
