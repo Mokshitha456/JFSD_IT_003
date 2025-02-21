@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+     body{
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        height: 100vh;
+        background-color: #b5afb3;
+    }
+    .form-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(227, 75, 136, 0.1);
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+</style>
+    <form id="Student-form">
+        <label for="Fname">Enter name</label>
+        <input type="text" placeholder="Enter the name here" id="Fname"><br>
+        <label for="Fname1">Enter Password</label>
+        <input type="password" placeholder="Enter the password here " id="Fname1"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        var form=document.getElementById("Student-form")
+        form.addEventListener('submit',
+            function(event){
+                event.preventDefault();
+                alert("Form submitted");
+                form.reset();
+            }
+        )
+    </script>
+</body>
+</html>
