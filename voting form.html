@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exp2c Voting Forms</title>
+</head>
+<body>
+    <style>
+         <style>
+     body{
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        height: 100vh;
+        background-color: #b5afb3;
+    }
+    .form-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(227, 75, 136, 0.1);
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+    }
+    input {
+        width: 50%;
+        padding: 4px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        width: 50%;
+        padding: 10px;
+        background: #5e758c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #abc2d9;
+    }
+</style>
+    <h1>Voter's Portal</h1>
+    <h3>Check Eligibility</h3>
+
+    <form action=" " method ="post">
+        <label for="name">name </label>
+        <input type ="text" name="name" placeholder="Enter your name" required><br><br>
+        <label for="age">Age </label>
+        <input type ="number" name="age" placeholder="Enter your age" required><br><br>
+        <label for="nationality">Nationality </label>
+        <input type ="text" name="nationality" placeholder="Enter your nationality" required><br><br>
+        <button type ="submit">Check Eligibility</button>   
+
+    </form>
+    <script>
+        var name1 = document.getElementById('name');
+        var age1 = document.getElementById('age');
+        var nationality1 = document.getElementById('national
+        var form = document.querySelector('form');
+        const submitbutton = document.querySelector('button');
+        form.addEventListener('submit', function(event){
+            event.preventDefault();
+            if(age1.value >= 18 && nationality1.value == 'Indian'){
+                alert('You are eligible to vote');
+            }
+            else{
+                alert('You are not eligible to vote');
+            }
+        });
+    </script>
+</body>
