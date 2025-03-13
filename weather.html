@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doc</title>
+</head>
+<body>
+    <h1>Alliance weather finder</h1>
+    <form>
+        <input type="search" id="city" placeholder="city" required>  
+        <button type="submit" onclick="getWeather(event)">search</button>
+    </form>
+    <div>
+        <p id="cityName"></p>
+        <p>Temperature: <span id="temp"></span>℃</p>
+    </div>
+    <script>
+        const api = {
+            base: "https://api.openweathermap.org/data/2.5/weather?q=",
+            key: "6f38b226bbb6185bb61450b2bbe70ad6"
+        }
+        const form = document.querySelector('form');
+        const city = document.getElementById('city');
+       
+        function getWeather(event) {
+            event.preventDefault();
+            var cityName = city.value;
+            fetch(`${api.base}${cityName}&units=metric&appid=${api.key}`)
+                .then(response => response.json())
+                .then(data => showWeather(data))
+                .catch(error => console.log('Error:', error));
+        }
+       
+        function showWeather(data) {
+            console.log(data);
+            document.getElementById('cityName').textContent = data.name;
+            document.getElementById('temp').textContent = data.main.temp;
+        }
+    </script>
+</body>
+</html>
