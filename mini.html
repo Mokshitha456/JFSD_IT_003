@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Management System</title>
+  <style>
+    /* Global Styles */
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 5px; }
+    
+    /* Header & Navigation */
+    header { background: #333; color: #fff; padding: 10px 0; text-align: center; }
+    header h1 { margin: 0; }
+    nav ul { list-style: none; padding: 0; margin: 10px 0; text-align: center; }
+    nav ul li { display: inline-block; margin: 0 15px; }
+    nav ul li a { color: #fff; text-decoration: none; }
+    nav ul li a.active { text-decoration: underline; }
+    
+    /* Form Styles */
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { background: #333; color: #fff; border: none; padding: 10px 15px; cursor: pointer; }
+    button:hover { background: #555; }
+    
+    /* Table & Card Styles */
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    table, th, td { border: 1px solid #ccc; }
+    th, td { padding: 10px; text-align: left; }
+    .employee-cards { display: flex; flex-wrap: wrap; gap: 20px; }
+    .employee-card { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 5px; width: calc(50% - 20px); }
+  </style>
+</head>
+<body>
+  <!-- Login Section -->
+  <div id="loginContainer" class="container">
+    <h2>Employee Management System Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" required />
+      </div>
+      <div class="form-group">
+        <label for="role">Login as:</label>
+        <select id="role">
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+        </select>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  
+  <!-- Admin Dashboard -->
+  <div id="adminDashboard" class="container" style="display:none;">
+    <header>
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <ul>
+          <li><a href="#" data-target="adminHome" class="active">Home</a></li>
+          <li><a href="#" data-target="attendance">Attendance</a></li>
+          <li><a href="#" data-target="employeeDetails">Employee Details</a></li>
+          <li><a href="#" data-target="experience">Experience</a></li>
+          <li><a href="#" id="logoutAdmin">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <!-- Home: Combined Employee & Attendance Table -->
+      <section id="adminHome">
+        <h2>Home</h2>
+        <div id="adminHomeContent"></div>
+      </section>
+      
+      <!-- Attendance Form -->
+      <section id="attendance" style="display:none;">
+        <h2>Attendance</h2>
+        <form id="attendanceForm">
+          <div class="form-group">
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" id="employeeId" required />
+          </div>
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status">
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reason">Reason (if absent):</label>
+            <input type="text" id="reason" placeholder="Enter reason if absent" />
+          </div>
+          <button type="submit">Submit Attendance</button>
+        </form>
+      </section>
+      
+      <!-- Employee Details Cards -->
+      <section id="employeeDetails" style="display:none;">
+        <h2>Employee Details</h2>
+        <div id="employeeDetailsContent"></div>
+      </section>
+      
+      <!-- Experience Section (Sample Data) -->
+      <section id="experience" style="display:none;">
+        <h2>Experience</h2>
+        <div id="experienceContent">
+          <p>Employee Experience Summary:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Years</th>
+                <th>Projects</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EMP001</td>
+                <td>John Doe</td>
+                <td>5</td>
+                <td>Alpha, Beta</td>
+              </tr>
+              <tr>
+                <td>EMP002</td>
+                <td>Jane Smith</td>
+                <td>3</td>
+                <td>Gamma, Delta</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <!-- Manager Dashboard -->
+  <div id="managerDashboard" class="container" style="display:none;">
+    <header>
+      <h1>Manager Dashboard</h1>
+      <nav>
+        <ul>
+          <li><a href="#" data-target="addEmployee" class="active">Add Employee</a></li>
+          <li><a href="#" data-target="managerEmployeeList">Employee List</a></li>
+          <li><a href="#" id="logoutManager">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <!-- Add Employee Form -->
+      <section id="addEmployee">
+        <h2>Add New Employee</h2>
+        <form id="addEmployeeForm">
+          <div class="form-group">
+            <label for="empId">Employee ID:</label>
+            <input type="text" id="empId" required />
+          </div>
+          <div class="form-group">
+            <label for="empName">Employee Name:</label>
+            <input type="text" id="empName" required />
+          </div>
+          <div class="form-group">
+            <label for="empEmail">Email:</label>
+            <input type="email" id="empEmail" required />
+          </div>
+          <div class="form-group">
+            <label for="empDept">Department:</label>
+            <input type="text" id="empDept" required />
+          </div>
+          <button type="submit">Add Employee</button>
+        </form>
+      </section>
+      
+      <!-- Manager Employee List -->
+      <section id="managerEmployeeList" style="display:none;">
+        <h2>Employee List & Attendance</h2>
+        <div id="managerEmployeeListContent"></div>
+      </section>
+    </main>
+  </div>
+  
+  <script>
+    // Utility functions using localStorage
+    function getEmployees() {
+      return JSON.parse(localStorage.getItem('employees')) || [];
+    }
+    function setEmployees(employees) {
+      localStorage.setItem('employees', JSON.stringify(employees));
+    }
+    function getAttendance() {
+      return JSON.parse(localStorage.getItem('attendance')) || {};
+    }
+    function setAttendance(attendance) {
+      localStorage.setItem('attendance', JSON.stringify(attendance));
+    }
+    
+    // --- LOGIN HANDLING ---
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var role = document.getElementById('role').value;
+      document.getElementById('loginContainer').style.display = 'none';
+      if(role === 'admin'){
+        document.getElementById('adminDashboard').style.display = 'block';
+        setupAdminNav();
+        renderAdminHome();
+      } else {
+        document.getElementById('managerDashboard').style.display = 'block';
+        setupManagerNav();
+        renderManagerList();
+      }
+    });
+    
+    // --- LOGOUT HANDLING ---
+    document.getElementById('logoutAdmin').addEventListener('click', function(e) {
+      e.preventDefault();
+      logout();
+    });
+    document.getElementById('logoutManager').addEventListener('click', function(e) {
+      e.preventDefault();
+      logout();
+    });
+    function logout() {
+      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('managerDashboard').style.display = 'none';
+      document.getElementById('loginContainer').style.display = 'block';
+    }
+    
+    // --- ADMIN DASHBOARD NAVIGATION ---
+    function setupAdminNav() {
+      var links = document.querySelectorAll('#adminDashboard nav ul li a[data-target]');
+      var sections = document.querySelectorAll('#adminDashboard main > section');
+      links.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          links.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          sections.forEach(sec => sec.style.display = 'none');
+          var target = this.getAttribute('data-target');
+          document.getElementById(target).style.display = 'block';
+          if(target === 'employeeDetails') renderEmployeeDetails();
+        });
+      });
+      // Default show Home
+      links.forEach(link => { if(link.getAttribute('data-target') === 'adminHome') link.classList.add('active'); });
+      sections.forEach(sec => { sec.style.display = (sec.id === 'adminHome') ? 'block' : 'none'; });
+    }
+    
+    // --- MANAGER DASHBOARD NAVIGATION ---
+    function setupManagerNav() {
+      var links = document.querySelectorAll('#managerDashboard nav ul li a[data-target]');
+      var sections = document.querySelectorAll('#managerDashboard main > section');
+      links.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          links.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          sections.forEach(sec => sec.style.display = 'none');
+          var target = this.getAttribute('data-target');
+          document.getElementById(target).style.display = 'block';
+        });
+      });
+      // Default show Add Employee
+      links.forEach(link => { if(link.getAttribute('data-target') === 'addEmployee') link.classList.add('active'); });
+      sections.forEach(sec => { sec.style.display = (sec.id === 'addEmployee') ? 'block' : 'none'; });
+    }
+    
+    // --- RENDER FUNCTIONS ---
+    // Render Admin Home: combined table of employees and attendance
+    function renderAdminHome() {
+      var employees = getEmployees();
+      var attendance = getAttendance();
+      var html = '<table><thead><tr><th>ID</th><th>Name</th><th>Dept</th><th>Email</th><th>Status</th><th>Reason</th></tr></thead><tbody>';
+      employees.forEach(function(emp) {
+        var att = attendance[emp.empId] || {status: 'N/A', reason: ''};
+        html += '<tr><td>' + emp.empId + '</td><td>' + emp.empName + '</td><td>' + emp.empDept + '</td><td>' + emp.empEmail + '</td><td>' + att.status + '</td><td>' + (att.reason || '-') + '</td></tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById('adminHomeContent').innerHTML = html;
+    }
+    
+    // Render Employee Details: detailed employee cards
+    function renderEmployeeDetails() {
+      var employees = getEmployees();
+      var html = employees.length ? '<div class="employee-cards">' : '<p>No employee details available.</p>';
+      employees.forEach(function(emp) {
+        html += '<div class="employee-card"><h3>' + emp.empName + ' (' + emp.empId + ')</h3><p>Email: ' + emp.empEmail + '</p><p>Dept: ' + emp.empDept + '</p></div>';
+      });
+      if(employees.length) html += '</div>';
+      document.getElementById('employeeDetailsContent').innerHTML = html;
+    }
+    
+    // Render Manager Employee List: table of employees & attendance
+    function renderManagerList() {
+      var employees = getEmployees();
+      var attendance = getAttendance();
+      var html = '<table><thead><tr><th>ID</th><th>Name</th><th>Dept</th><th>Email</th><th>Status</th></tr></thead><tbody>';
+      employees.forEach(function(emp) {
+        var att = attendance[emp.empId] || {status: 'N/A'};
+        html += '<tr><td>' + emp.empId + '</td><td>' + emp.empName + '</td><td>' + emp.empDept + '</td><td>' + emp.empEmail + '</td><td>' + att.status + '</td></tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById('managerEmployeeListContent').innerHTML = html;
+    }
+    
+    // --- FORM HANDLERS ---
+    // Attendance Form (Admin)
+    document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var empId = document.getElementById('employeeId').value.trim();
+      var status = document.getElementById('status').value;
+      var reason = document.getElementById('reason').value.trim();
+      if(!empId) { alert('Enter Employee ID'); return; }
+      var attendance = getAttendance();
+      attendance[empId] = { status: status, reason: status === 'absent' ? reason : '' };
+      setAttendance(attendance);
+      alert('Attendance submitted');
+      this.reset();
+      renderAdminHome();
+      renderManagerList();
+    });
+    
+    // Add Employee Form (Manager)
+    document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var empId = document.getElementById('empId').value.trim();
+      var empName = document.getElementById('empName').value.trim();
+      var empEmail = document.getElementById('empEmail').value.trim();
+      var empDept = document.getElementById('empDept').value.trim();
+      if(!empId || !empName || !empEmail || !empDept) { alert('Fill all fields'); return; }
+      var employees = getEmployees();
+      if(employees.some(emp => emp.empId === empId)) { alert('Employee already exists'); return; }
+      employees.push({ empId: empId, empName: empName, empEmail: empEmail, empDept: empDept });
+      setEmployees(employees);
+      alert('Employee added');
+      this.reset();
+      renderManagerList();
+      renderAdminHome();
+    });
+  </script>
+</body>
+</html>
